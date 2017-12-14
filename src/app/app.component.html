@@ -1,0 +1,79 @@
+<!--  -->
+<div style="text-align:center">
+  <h1>
+    {{ title }}
+  </h1>
+</div>
+<div class="row">
+  <div class="col-6">
+<table class="table">
+  <tbody>
+  <tr *ngFor="let row of drinks; let i = index">
+    <td style="text-align:center" *ngFor="let drink of row; let y = index">
+      {{drink.label}}<br>
+      {{drink.price}} €<br>
+      {{drink.amount}} Stück<br>
+      Nr. {{(i+1)+''+(y+1)}}
+    </td>
+  </tr>
+  </tbody>
+</table>
+  </div>
+  <div class="col-6">
+    <div class="row">
+    <div class="col-7">
+      <table class="table" style="text-align: center">
+      <thead>
+      <tr>
+        <th><span style="color:white;">0</span></th><th colspan="3" style="text-align: right">{{ display }}</th>
+      </tr>
+      <tr>
+        <td><button type="button" (click)="addNumber(1)" class="btn btn-outline-primary">1</button></td>
+        <td><button type="button" (click)="addNumber(2)" class="btn btn-outline-primary">2</button></td>
+        <td><button type="button" (click)="addNumber(3)" class="btn btn-outline-primary">3</button></td>
+        <td><button type="button" (click)="reset()" class="btn btn-outline-danger">X</button></td>
+      </tr>
+      <tr>
+        <td><button type="button" (click)="addNumber(4)" class="btn btn-outline-primary">4</button></td>
+        <td><button type="button" (click)="addNumber(5)" class="btn btn-outline-primary">5</button></td>
+        <td><button type="button" (click)="addNumber(6)" class="btn btn-outline-primary">6</button></td>
+        <td><button type="button" (click)="checkForMatch(); display = display.substring(0, display.length - 1)" class="btn btn-outline-warning"><--</button></td>
+      </tr>
+      <tr>
+        <td><button type="button" (click)="addNumber(7)" class="btn btn-outline-primary">7</button></td>
+        <td><button type="button" (click)="addNumber(8)" class="btn btn-outline-primary">8</button></td>
+        <td><button type="button" (click)="addNumber(9)" class="btn btn-outline-primary">9</button></td>
+        <td></td>
+      </tr>
+      </thead>
+      </table>
+    </div>
+    <div class="col">
+      <div class="row" style="padding-right: 20px;">
+        <div class="col-6" style="text-align: left;"> Preis: {{ toPay }} €</div>
+        <div class="col-6" style="text-align: right;">{{ payed }} €</div>
+      </div>
+      <div class="row" style="padding: 15px 15px 0 0;">
+        <div *ngFor="let coin of coins" class="col-6" style="text-align: center; padding-bottom: 20px;">
+          <button type="button" class="btn btn-success" (click)="coin.amount = coin.amount + 1; payed = payed + coin.val; checkForMatch();">{{ coin.val }} €</button>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <h4>Getränk:</h4><br>
+    <span [hidden]="!actioncasted">{{ response.drink }}</span>
+  </div>
+  <div class="col-6">
+    <h4>Wechselgeld:</h4><br>
+    <div class="row">
+      <div class="col-2" *ngFor="let coin of response.coins">
+        {{ coin.val }} €<br>
+        {{ coin.amount }} mal
+      </div>
+    </div>
+  </div>
+</div>
